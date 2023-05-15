@@ -1,4 +1,5 @@
-# Unity Singleton
+![cover](https://socialify.git.ci/labbbirder/UnitySingleton/image?description=1&font=Jost&forks=1&issues=1&name=1&pattern=Signal&stargazers=1&theme=Auto)
+# Singleton
 可以在Editor和Runtime混用的Unity单例模块。稳定可靠，懒加载，无额外开销，任何情况都不会出现多实例化。
 ## Features
 * 兼容所有场景，稳定可靠的提供一个单例：
