@@ -1,0 +1,18 @@
+{
+    "name": "com.bbbirder.singleton.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:484ae620b6e5b534ba593c25252782fd"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

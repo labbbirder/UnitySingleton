@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.bbbirder.singleton/Editor/SingletonStyles.uss?fileID=7433441132597879392&amp;guid=fef03e1b5cc0c9149b257d89d779ad7c&amp;type=3#SingletonStyles" />
+    <ui:VisualElement style="flex-direction: row; align-items: center; padding-left: 9px; padding-right: 9px; padding-top: 9px; padding-bottom: 9px;">
+        <ui:VisualElement name="icon" style="background-image: url(&apos;project://database/Packages/com.bbbirder.singleton/Editor/Res/icon_cube.png?fileID=2800000&amp;guid=13185e6321cf9574bbbb0af9596896ab&amp;type=3#icon_cube&apos;); width: 12px; height: 12px; margin-right: 5px; margin-left: -2px; flex-grow: 0; flex-shrink: 0;" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="txtName" style="flex-grow: 1; -unity-text-align: middle-left;" />
+        <uie:MaskField choices="1,3" name="mask" style="flex-shrink: 1; max-width: 120px;" />
+        <ui:VisualElement name="btnInspect" class="btn" style="background-image: url(&apos;project://database/Packages/com.bbbirder.singleton/Editor/Res/icon_pencil.png?fileID=2800000&amp;guid=d390d003af3c75544af45d5e6003158d&amp;type=3#icon_pencil&apos;); width: 12px; height: 12px; margin-left: 6px; margin-right: 6px;" />
+        <ui:VisualElement name="btnDestroy" class="btn" style="background-image: url(&apos;project://database/Packages/com.bbbirder.singleton/Editor/Res/icon_delete.png?fileID=2800000&amp;guid=b2caf57de4deac5438d484fd6a98d445&amp;type=3#icon_delete&apos;); width: 12px; height: 12px; flex-shrink: 0;" />
+    </ui:VisualElement>
+</ui:UXML>
