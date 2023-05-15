@@ -8,7 +8,7 @@
     * 场景切换
     * etc
 * 可以包含子物体：基于MonoBehaviour，可添加子GameObject
-* 独立于场景：单例默认使用HideFlags隐藏，不属于任何场景
+* 独立于场景：单例默认使用HideFlags隐藏，不属于任何场景，不需要考虑入口场景
 * 可检索：可视化窗口检索单例列表（Window/bbbirder/Singletons）
 ## Example
 只需要继承`Singleton<T>`
