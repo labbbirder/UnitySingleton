@@ -14,16 +14,19 @@ namespace com.bbbirder.unity{
         const int SOURCE_UPDATE_INTERVAL = 100;
         const string uiRootGUID    = "72ffbc6d3ac74ec4991e3a339804d8d5";
         const string uiElementGUID = "5ff6281642adb5c48a87d0bac8b6c70c";
-
+        bool inited = false;
         [MenuItem("Window/bbbirder/Singletons")]
         public static void ShowWindow()
         {
             var window = GetWindow<SingletonWindow>();
             window.titleContent = new GUIContent("Singletons");
             window.Show();
+            window.CreateGUI();//avoid Unity bug: https://forum.unity.com/threads/creategui-not-being-called.1111852/
         }
-        private void CreateGUI()
+
+        public void CreateGUI()
         {
+            if(inited) return;
             var uiRootAsset    = GetVisualTreeAssetByGUID(uiRootGUID);
             var uiElementAsset = GetVisualTreeAssetByGUID(uiElementGUID);
             uiRootAsset.CloneTree(rootVisualElement);
