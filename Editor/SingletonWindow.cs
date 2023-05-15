@@ -28,27 +28,6 @@ namespace com.bbbirder.unity{
             var uiElementAsset = GetVisualTreeAssetByGUID(uiElementGUID);
             uiRootAsset.CloneTree(rootVisualElement);
             var lst = rootVisualElement.Q<ListView>("lst");
-            // lst.makeItem = uiElementAsset.CloneTree;
-            // lst.bindItem = (ve,i)=>{
-            //     var go = lst.itemsSource[i] as GameObject;
-            //     var txtName    = ve.Q<Label>("txtName");
-            //     var btnInspect = ve.Q("btnInspect");
-            //     var btnDestroy = ve.Q("btnDestroy");
-            //     var mask       = ve.Q<MaskField>("mask");
-            //     txtName.text = go.name;
-            //     mask.choices = Enum.GetNames(typeof(HideFlags))[1..^2].ToList();
-            //     mask.value = (int)go.hideFlags;
-            //     btnDestroy.RegisterCallback<ClickEvent>(e=>{
-            //         GameObject.DestroyImmediate(go);
-            //     });
-            //     btnInspect.RegisterCallback<ClickEvent>(e=>{
-            //         Selection.activeGameObject = go;
-            //         // EditorUtility.OpenPropertyEditor(go);
-            //     });
-            //     txtName.RegisterCallback<ClickEvent>(e=>{
-            //         Selection.activeGameObject = go;
-            //     });
-            // };
             (lst.makeItem,lst.bindItem) = BindItem();
             rootVisualElement.schedule.Execute(UpdateSource).Every(SOURCE_UPDATE_INTERVAL);
             (Func<VisualElement>,Action<VisualElement,int>) BindItem(){
