@@ -17,7 +17,7 @@ namespace com.bbbirder.unity{
                 // m_Instance??=new GameObject(typeof(T).Name){
                 //     hideFlags=HideFlags.HideAndDontSave
                 // }.AddComponent<T>();
-                //Note: dont impl with `??=` syntax for UnityEngine.Object not works well with that!
+                //Note: Do not use the `??=` syntax for UnityEngine.Object as it does not work well with it!
                 if(!m_Instance){
                     m_Instance = Resources.FindObjectsOfTypeAll<T>().FirstOrDefault();
                 }
