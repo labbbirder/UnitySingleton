@@ -31,38 +31,43 @@ namespace com.bbbirder.unity{
             (lst.makeItem,lst.bindItem) = BindItem();
             rootVisualElement.schedule.Execute(UpdateSource).Every(SOURCE_UPDATE_INTERVAL);
             (Func<VisualElement>,Action<VisualElement,int>) BindItem(){
-                GameObject    gameObject = null;
-                Label         txtName    = null;
-                VisualElement btnInspect = null;
-                VisualElement btnDestroy = null;
-                MaskField     mask       = null;
+                // GameObject    gameObject = null;
+                // Label         txtName    = null;
+                // VisualElement btnInspect = null;
+                // VisualElement btnDestroy = null;
+                // MaskField     mask       = null;
                 return (OnCreate,OnBind);
                 VisualElement OnCreate(){
                     var ele = uiElementAsset.CloneTree();
-                    txtName    = ele.Q<Label>(nameof(txtName));
-                    btnInspect = ele.Q(nameof(btnInspect));
-                    btnDestroy = ele.Q(nameof(btnDestroy));
-                    mask       = ele.Q<MaskField>(nameof(mask));
+                    var txtName    = ele.Q<Label>("txtName");
+                    var btnInspect = ele.Q("btnInspect");
+                    var btnDestroy = ele.Q("btnDestroy");
+                    var mask       = ele.Q<MaskField>("mask");
                     mask.choices = Enum.GetNames(typeof(HideFlags))[1..^2].ToList();
                     mask.RegisterValueChangedCallback(e=>{
-                        gameObject.hideFlags = (HideFlags)e.newValue;
+                        GetGameObject().hideFlags = (HideFlags)e.newValue;
                     });
                     btnDestroy.RegisterCallback<ClickEvent>(e=>{
-                        GameObject.DestroyImmediate(gameObject);
+                        GameObject.DestroyImmediate(GetGameObject());
                     });
                     btnInspect.RegisterCallback<ClickEvent>(e=>{
-                        Selection.activeGameObject = gameObject;
+                        Selection.activeGameObject = GetGameObject();
                         // EditorUtility.OpenPropertyEditor(go);
                     });
                     txtName.RegisterCallback<ClickEvent>(e=>{
-                        Selection.activeGameObject = gameObject;
+                        Selection.activeGameObject = GetGameObject();
                     });
                     return ele;
+                    GameObject GetGameObject()=>ele.userData as GameObject;
                 }
-                void OnBind(VisualElement _,int idx){
-                    gameObject = lst.itemsSource[idx] as GameObject;
+                void OnBind(VisualElement ele,int idx){
+                    var txtName    = ele.Q<Label>("txtName");
+                    var mask       = ele.Q<MaskField>("mask");
+                    var gameObject = lst.itemsSource[idx] as GameObject;
                     txtName.text = gameObject.name;
                     mask.value = (int)gameObject.hideFlags;
+                    ele.userData = gameObject;
+                    // Debug.Log(gameObject.name+gameObject.hideFlags);
                 }
             }
             void UpdateSource(){
