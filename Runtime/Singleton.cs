@@ -11,14 +11,18 @@ using UnityEngine.SceneManagement;
 
 namespace com.bbbirder.unity{
     [ExecuteInEditMode]
-    public class Singleton<T> : SingletonBase where T:MonoBehaviour
+    public class Singleton<T> : SingletonBase where T:Singleton<T>
     {
         static T m_Instance;
         public static T Instance{
             get{
                 //Note: Do not use the `??=` syntax for UnityEngine.Object as it does not work well with it!
                 if(!m_Instance){
-                    m_Instance = Resources.FindObjectsOfTypeAll<T>().FirstOrDefault();
+                    #if UNITY_EDITOR
+                    m_Instance = Resources.FindObjectsOfTypeAll<T>().FirstOrDefault(inst=>inst);
+                    #else
+                    m_Instance = FindObjectOfType<T>();
+                    #endif
                 }
                 if(!m_Instance){
                     m_Instance = new GameObject(typeof(T).Name){
