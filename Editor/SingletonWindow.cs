@@ -74,7 +74,9 @@ namespace com.bbbirder.unity{
                 lst.itemsSource = Resources.FindObjectsOfTypeAll<SingletonBase>()
                     .Select(comp=>comp.gameObject)
                     .Distinct()
+                    .Where(o=>o)
                     .ToList();
+                lst.RefreshItems();
             }
         }
         VisualTreeAsset GetVisualTreeAssetByGUID(string guid)=>

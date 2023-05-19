@@ -32,4 +32,4 @@ public class YourComponent:Singleton<YourComponent>{
 
 ![窗口截图](Documentation/img_record.png)
 ## Known Issues
-1. 可视化窗口在部分低版本Unity中不自动刷新，需要手动改变下窗口大小解决。或者升级Unity版本
+~~1. 可视化窗口在部分低版本Unity中不自动刷新，需要手动改变下窗口大小解决。或者升级Unity版本~~
