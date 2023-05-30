@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
@@ -13,6 +14,13 @@ namespace com.bbbirder.unity{
     [ExecuteInEditMode]
     public class Singleton<T> : SingletonBase where T:Singleton<T>
     {
+        const BindingFlags bindingFlags = BindingFlags.Default
+            |BindingFlags.FlattenHierarchy
+            |BindingFlags.Static
+            |BindingFlags.Public
+            |BindingFlags.NonPublic
+            ;
+        // static SingletonFactory factory;
         static T m_Instance;
         public static T Instance{
             get{
@@ -25,13 +33,16 @@ namespace com.bbbirder.unity{
                     #endif
                 }
                 if(!m_Instance){
-                    m_Instance = new GameObject(typeof(T).Name){
-                        hideFlags=HideFlags.HideAndDontSave,
-                    }.AddComponent<T>();
+                    m_Instance = (T)typeof(T).GetMethod("CreateInstance",bindingFlags).Invoke(null,null);
                 }
                 Assert.IsNotNull(m_Instance);
                 return m_Instance;
             }
+        }
+        protected static T CreateInstance(){
+            return new GameObject(typeof(T).Name){
+                hideFlags=HideFlags.HideAndDontSave,
+            }.AddComponent<T>();
         }
         protected virtual void Awake(){
             if(m_Instance==null){
@@ -84,14 +95,13 @@ namespace com.bbbirder.unity{
             }
         }
     }
-    class SingeltonManager{
+    static class SingeltonManager{
         static void RemoveAllSingletons(Func<SingletonBase,bool> predicate){
             Resources
             .FindObjectsOfTypeAll<SingletonBase>()
             .Where(predicate)
             .ForEach(inst=>inst.DestroySelf());
         }
-        
         #if UNITY_EDITOR
         [UnityEditor.InitializeOnLoadMethod]
         static void CleanOnRecompileIfNeeded(){
