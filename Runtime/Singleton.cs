@@ -15,16 +15,14 @@ namespace com.bbbirder.unity{
     public class Singleton<T> : SingletonBase where T:Singleton<T>
     {
         const BindingFlags bindingFlags = BindingFlags.Default
-            |BindingFlags.FlattenHierarchy
-            |BindingFlags.Static
-            |BindingFlags.Public
-            |BindingFlags.NonPublic
+            | BindingFlags.FlattenHierarchy
+            | BindingFlags.Static
+            | BindingFlags.Public
+            | BindingFlags.NonPublic
             ;
-        // static SingletonFactory factory;
         static T m_Instance;
         public static T Instance{
             get{
-                //Note: Do not use the `??=` syntax for UnityEngine.Object as it does not work well with it!
                 if(!m_Instance){
                     #if UNITY_EDITOR
                     m_Instance = Resources.FindObjectsOfTypeAll<T>().FirstOrDefault(inst=>inst);
@@ -71,22 +69,22 @@ namespace com.bbbirder.unity{
         /// </summary>
         public virtual bool DestroyOnExitEditMode => false;
         /// <summary>
-        /// whether to destroy on new scene load.
+        /// whether to destroy on scene unload.
         /// </summary>
         /// <value></value>
-        public bool DestroyOnLoad {
-            get=>m_DestroyOnLoad;
+        public bool DestroyOnSceneUnload {
+            get=>m_DestroyOnSceneUnload;
             set{
                 if(value){
                     SceneManager.MoveGameObjectToScene(gameObject,SceneManager.GetActiveScene());
                 }else{
                     DontDestroyOnLoad(gameObject);
                 }
-                m_DestroyOnLoad = value;
+                m_DestroyOnSceneUnload = value;
             }
         }
-        private bool m_DestroyOnLoad = false;
-        public Dictionary<string,object> extraData {get;private set;}=new();
+        private bool m_DestroyOnSceneUnload = false;
+
         internal void DestroySelf(){
             if(Application.isPlaying){
                 Destroy(gameObject);
