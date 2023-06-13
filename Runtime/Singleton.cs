@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using Sirenix.Utilities;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -92,34 +89,5 @@ namespace com.bbbirder.unity{
                 DestroyImmediate(gameObject);
             }
         }
-    }
-    static class SingeltonManager{
-        static void RemoveAllSingletons(Func<SingletonBase,bool> predicate){
-            Resources
-            .FindObjectsOfTypeAll<SingletonBase>()
-            .Where(predicate)
-            .ForEach(inst=>inst.DestroySelf());
-        }
-        #if UNITY_EDITOR
-        [UnityEditor.InitializeOnLoadMethod]
-        static void CleanOnRecompileIfNeeded(){
-            RemoveAllSingletons(inst=>inst.DestroyOnReloadDomain);
-        }
-
-        [UnityEditor.InitializeOnLoadMethod]
-        static void CleanOnPlayModeChangeIfNeeded(){
-            UnityEditor.EditorApplication.playModeStateChanged+=e=>{
-                if(e==PlayModeStateChange.ExitingPlayMode){
-                    RemoveAllSingletons(inst=>inst.DestroyOnExitPlayMode);
-                }else if(e==PlayModeStateChange.ExitingEditMode){
-                    RemoveAllSingletons(inst=>inst.DestroyOnExitEditMode);
-                }else if(e==PlayModeStateChange.EnteredPlayMode){
-                    Resources
-                    .FindObjectsOfTypeAll<SingletonBase>()
-                    .ForEach(inst=>inst.DestroyOnLoad ^= false);
-                }
-            };
-        }
-        #endif
     }
 }

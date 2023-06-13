@@ -45,17 +45,21 @@ namespace com.bbbirder.unity{
                     var mask       = ele.Q<MaskField>("mask");
                     mask.choices = Enum.GetNames(typeof(HideFlags))[1..^2].ToList();
                     mask.RegisterValueChangedCallback(e=>{
-                        GetGameObject().hideFlags = (HideFlags)e.newValue;
+                        var go = GetGameObject();
+                        if(go) go.hideFlags = (HideFlags)e.newValue;
                     });
                     btnDestroy.RegisterCallback<ClickEvent>(e=>{
-                        GameObject.DestroyImmediate(GetGameObject());
+                        var go = GetGameObject();
+                        if(go) GameObject.DestroyImmediate(go);
                     });
                     btnInspect.RegisterCallback<ClickEvent>(e=>{
-                        Selection.activeGameObject = GetGameObject();
+                        var go = GetGameObject();
+                        if(go) Selection.activeGameObject = go;
                         // EditorUtility.OpenPropertyEditor(go);
                     });
                     txtName.RegisterCallback<ClickEvent>(e=>{
-                        Selection.activeGameObject = GetGameObject();
+                        var go = GetGameObject();
+                        if(go) Selection.activeGameObject = go;
                     });
                     return ele;
                     GameObject GetGameObject()=>ele.userData as GameObject;
@@ -67,7 +71,6 @@ namespace com.bbbirder.unity{
                     txtName.text = gameObject.name;
                     mask.value = (int)gameObject.hideFlags;
                     ele.userData = gameObject;
-                    // Debug.Log(gameObject.name+gameObject.hideFlags);
                 }
             }
             void UpdateSource(){
