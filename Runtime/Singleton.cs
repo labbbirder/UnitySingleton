@@ -40,8 +40,8 @@ namespace com.bbbirder.unity{
             }
         }
         protected static T CreateInstance(){
-            return new GameObject(typeof(T).Name){
-                hideFlags=HideFlags.HideAndDontSave,
+            return new GameObject(typeof(T).Name){ 
+                hideFlags = HideFlags.HideAndDontSave ^ HideFlags.NotEditable,
             }.AddComponent<T>();
         }
         protected virtual void Awake(){
