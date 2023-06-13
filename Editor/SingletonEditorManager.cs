@@ -5,7 +5,7 @@ using UnityEngine;
 using com.bbbirder.unity;
 
 class SingeltonManager{
-    static void DestroyGameObject(UnityEngine.Object go){
+    static void DestroyGameObject(GameObject go){
         if(Application.isPlaying){
             GameObject.Destroy(go);
         }else{
@@ -21,7 +21,7 @@ class SingeltonManager{
             .Where(predicate)
             .ToArray();
         foreach(var inst in instances){
-            DestroyGameObject(inst);
+            DestroyGameObject(inst.gameObject);
         }
     }
     [InitializeOnLoadMethod]
