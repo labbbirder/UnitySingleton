@@ -7,8 +7,9 @@ using UnityEditor.UIElements;
 using System.Linq;
 using System;
 using UnityEngine.Assertions;
+using com.bbbirder.unity;
 
-namespace com.bbbirder.unity{
+namespace com.bbbirder.unityeditor{
     public class SingletonWindow : EditorWindow
     {
         const int SOURCE_UPDATE_INTERVAL = 100;

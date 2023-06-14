@@ -43,45 +43,39 @@ namespace com.bbbirder.unity{
             if(m_Instance==null){
                 m_Instance = this as T;
                 if(Application.isPlaying){
-                    DontDestroyOnLoad(gameObject);
+                    DestroyOnSceneUnload = DestroyOnSceneUnload;
                 }
             }else{
                 DestroySelf();
             }
         }
-        
     }
     
     public abstract class SingletonBase:MonoBehaviour{
-        /// <summary>
-        /// whether to destroy on script recompilation.
-        /// </summary>
-        public virtual bool DestroyOnReloadDomain => true;
-        /// <summary>
-        /// whether to destroy on Application mode switchs from play mode to editor mode.
-        /// </summary>
-        public virtual bool DestroyOnExitPlayMode => false;
-        /// <summary>
-        /// whether to destroy on Application mode switchs from editor mode to play mode.
-        /// </summary>
-        public virtual bool DestroyOnExitEditMode => false;
-        /// <summary>
-        /// whether to destroy on scene unload.
-        /// </summary>
-        /// <value></value>
-        public bool DestroyOnSceneUnload {
-            get=>m_DestroyOnSceneUnload;
-            set{
-                if(value){
-                    SceneManager.MoveGameObjectToScene(gameObject,SceneManager.GetActiveScene());
-                }else{
-                    DontDestroyOnLoad(gameObject);
+        SingletonDestroyCondition m_DestroyCondition = SingletonDestroyCondition.ReloadDomain;
+        public virtual SingletonDestroyCondition DestroyCondition{
+            get => m_DestroyCondition;
+            private set {
+                var flgSceneUnload = (value^m_DestroyCondition) & SingletonDestroyCondition.SceneUnload;
+                if(flgSceneUnload!=0){
+                    var hasFlag = 0 != (value&SingletonDestroyCondition.SceneUnload);
+                    DestroyOnSceneUnload = hasFlag;
                 }
-                m_DestroyOnSceneUnload = value;
+                m_DestroyCondition = value;
             }
         }
-        private bool m_DestroyOnSceneUnload = false;
-
+        public bool DestroyOnSceneUnload{
+            get => DestroyCondition.Contains(SingletonDestroyCondition.SceneUnload);
+            set {
+                if(value){
+                    SceneManager.MoveGameObjectToScene(gameObject,SceneManager.GetActiveScene());
+                    DestroyCondition |= SingletonDestroyCondition.SceneUnload;
+                }else{
+                    DontDestroyOnLoad(gameObject);
+                    DestroyCondition &= ~SingletonDestroyCondition.SceneUnload;
+                }
+            }
+        }
         internal void DestroySelf(){
             if(Application.isPlaying){
                 Destroy(gameObject);
@@ -89,5 +83,7 @@ namespace com.bbbirder.unity{
                 DestroyImmediate(gameObject);
             }
         }
+        
+
     }
 }
