@@ -2,7 +2,7 @@
   "name": "com.bbbirder.singleton",
   "description": "Unity单例模块",
   "displayName": "singleton",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "hideInEditor": false,
   "author": "bbbirder <502100554@qq.com>"
 }
