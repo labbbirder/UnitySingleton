@@ -92,8 +92,8 @@ namespace com.bbbirder.unityeditor{
         
         static bool shouldDestroyOnReloadDomain(this SingletonBase singleton){
             var t = singleton.GetType();
-            var isAutoCreate = lut_singletonCreation.ContainsKey(t)
-                && lut_singletonCreation[t].Contains(SingletonCreateCondition.ReloadDomain);
+            var isAutoCreate = GetSingletonTypes().ContainsKey(t)
+                && GetSingletonTypes()[t].Contains(SingletonCreateCondition.ReloadDomain);
             return singleton.DestroyCondition.Contains(SingletonDestroyCondition.ReloadDomain)
                 && !isAutoCreate;
         }
