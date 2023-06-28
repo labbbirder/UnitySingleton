@@ -5,6 +5,7 @@
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/labbbirder/unitysingleton)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/labbbirder/unitysingleton)
+[![openupm](https://img.shields.io/npm/v/com.bbbirder.singleton?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.bbbirder.singleton/)
 
 ## Features
 * 兼容所有场景，稳定可靠的提供一个单例：

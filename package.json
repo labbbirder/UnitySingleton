@@ -2,7 +2,12 @@
   "name": "com.bbbirder.singleton",
   "description": "Unity单例模块",
   "displayName": "singleton",
-  "version": "0.0.16",
+  "version": "0.0.20",
   "hideInEditor": false,
+  "subtree": "UnitySingleton",
+  "scripts": {
+    "tpush": "node ../../scripts/tpush.mjs",
+    "tpull": "node ../../scripts/tpull.mjs"
+  },
   "author": "bbbirder <502100554@qq.com>"
 }
